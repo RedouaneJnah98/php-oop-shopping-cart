@@ -2,10 +2,10 @@
 
 class Database
 {
-    private $host = 'localhost';
-    private $db_Name = 'php_shopping_cart';
-    private $user = 'root';
-    private $password = '';
+    private string $host = 'localhost';
+    private string $db_Name = 'php_shopping_cart';
+    private string $user = 'root';
+    private string $password = '';
     public $conn;
 
     public function getConnection()

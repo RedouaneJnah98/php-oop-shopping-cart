@@ -22,8 +22,12 @@
 
                 <li <?php echo $page_title=="Cart" ? "class='active'" : ""; ?> >
                     <a href="cart.php">
-                        <!--later, we'll put a PHP code here that will count items in the cart -->
-                        Cart <span class="badge" id="comparison-count">0</span>
+                        <?php
+                        // count products in cart
+                        $cart_item->user_id = 1; // default to user with ID '1' for now
+                        $cart_count = $cart_item->count();
+                        ?>
+                        Cart <span class="badge" id="comparison-count"><?= $cart_count ?></span>
                     </a>
                 </li>
             </ul>
