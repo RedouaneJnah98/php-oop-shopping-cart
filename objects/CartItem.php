@@ -28,8 +28,8 @@ class CartItem
         $stmt = $this->conn->prepare( $query );
 
         // sanitize
-        $this->product_id=htmlspecialchars(strip_tags($this->product_id));
-        $this->user_id=htmlspecialchars(strip_tags($this->user_id));
+        $this->product_id = htmlspecialchars(strip_tags($this->product_id));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
 
         // bind category id variable
         $stmt->bindParam(":product_id", $this->product_id);
@@ -119,5 +119,73 @@ class CartItem
 
         // return values
         return $stmt;
+    }
+
+    public function update(): bool
+    {
+        // query to insert cart item record
+        $query = "UPDATE " . $this->table_name . "
+            SET quantity = :quantity
+            WHERE product_id = :product_id AND user_id = :user_id";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->quantity=htmlspecialchars(strip_tags($this->quantity));
+        $this->product_id=htmlspecialchars(strip_tags($this->product_id));
+        $this->user_id=htmlspecialchars(strip_tags($this->user_id));
+
+        // bind values
+        $stmt->bindParam(":quantity", $this->quantity);
+        $stmt->bindParam(":product_id", $this->product_id);
+        $stmt->bindParam(":user_id", $this->user_id);
+
+        // execute query
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function delete(): bool
+    {
+        // delete query
+        $query = "DELETE FROM " . $this->table_name . " WHERE product_id = :product_id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->product_id=htmlspecialchars(strip_tags($this->product_id));
+        $this->user_id=htmlspecialchars(strip_tags($this->user_id));
+
+        // bind ids
+        $stmt->bindParam(":product_id", $this->product_id);
+        $stmt->bindParam(":user_id", $this->user_id);
+
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function deleteByUser(): bool
+    {
+        // delete query
+        $query = "DELETE FROM " . $this->table_name . " WHERE user_id=:user_id";
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->user_id=htmlspecialchars(strip_tags($this->user_id));
+
+        // bind id
+        $stmt->bindParam(":user_id", $this->user_id);
+
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
     }
 }

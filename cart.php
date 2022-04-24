@@ -123,7 +123,29 @@ if ($cart_count > 0) {
         </div>
     </div>";
 }
+?>
 
+
+
+
+<?php
 // layout footer
-include 'layout_footer.php';
+include 'layout_footer.php'; ?>
+
+<script>
+    $(document).ready(function () {
+        // update quantity button listener
+        $('.update-quntity-form').on('submit', function () {
+            // get basic information for updating the cart
+            const id = $(this).find('.product-id').text();
+            const quantity = $(this).find('.cart-quantity').val();
+
+            // redirect to update_quantity.php, with parameters value
+            window.local.href = 'update_quantity.php?id=' + id + '&quantity=' + quantity;
+            return false;
+        })
+        // image hove js will be here
+    })
+</script>
+
 

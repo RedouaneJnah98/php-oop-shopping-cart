@@ -19,10 +19,10 @@ $cart_item = new CartItem($db);
 /*
  * action for custom messages
  */
-$action = isset($_GET['action']) ? $_GET['action'] : '';
+$action = $_GET['action'] ?? '';
 
 // for pagination purposes
-$page =  isset($_GET['page']) ? $_GET['page'] : 1; // page is the current page, if there's nothing set, default is 1
+$page = $_GET['page'] ?? 1; // page is the current page, if there's nothing set, default is 1
 $records_per_page = 6; // rows of data per page
 $from_record_num = ($records_per_page * $page)- $records_per_page; // calculate for the query LIMIT clause
 
